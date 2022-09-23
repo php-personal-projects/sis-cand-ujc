@@ -13,7 +13,7 @@
 					['label' => 'Candidatos', 'icon' => 'file-code-o', 'url' => ['/sala/index']],
 					['label' => 'Candidaturas', 'icon' => 'file-code-o', 'url' => ['/agendamento/index']],
 					['label' => 'Cursos', 'icon' => 'far fa-list-alt', 'url' => ['/curso/index']],
-					['label' => 'Disciplinas', 'icon' => 'file-code-o', 'url' => ['/empresa/index']],
+					['label' => 'Disciplinas', 'icon' => 'file-code-o', 'url' => ['/disciplina/index']],
 					['label' => 'Escolas', 'icon' => 'file-code-o', 'url' => ['/empresa/index']],
 					['label' => 'Exames', 'icon' => 'file-code-o', 'url' => ['/empresa/index']],
 					['label' => 'Resultados', 'icon' => 'file-code-o', 'url' => ['/empresa/index']],

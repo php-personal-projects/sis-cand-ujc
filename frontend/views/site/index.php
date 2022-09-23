@@ -8,7 +8,6 @@
 
 	$cursos = Curso::find()->orderBy(['created_at'=>SORT_ASC])->all();
 
-//	$this->title = 'My Yii Application';
 	AppAsset::register($this);
 ?>
 
@@ -59,9 +58,8 @@
                         <li class="list-group-item"><strong>Vagas:</strong> <?php echo $curso->numero_vagas; ?></li>
                     </ul>
                     <hr class="hr-light">
-					<?= Html::a('Candidatar-me', ['/site/login'], ['class' => 'btn btn-primary py-0 px-4 d-none d-lg-block']) ?>
+					<?= Html::a('Candidatar-me', ['/candidatura/create'], ['class' => 'btn btn-primary py-0 px-4 d-none d-lg-block']) ?>
                 </div>
-
             </div>
 
             <!-- Card -->

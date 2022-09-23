@@ -42,6 +42,9 @@
 //		}
 //		NavBar::end();
 //	?>
+
+     <?php    if (Yii::$app->user->isGuest) { ?>
+
         <!-- Navbar Start -->
         <div class="container-fluid p-0">
             <nav class="navbar navbar-expand-lg bg-white navbar-light py-lg-0 px-lg-5 fixed-top" style="border:solid 1px; border-radius: 20px">
@@ -64,5 +67,36 @@
             </nav>
         </div>
         <!-- Navbar End -->
+
+
+        <?php } else { ?>
+
+         <div class="container-fluid p-0">
+             <nav class="navbar navbar-expand-lg bg-white navbar-light py-lg-0 px-lg-5 fixed-top" style="border:solid 1px; border-radius: 20px">
+
+                 <div class="col-lg-2 col-md-4 col-sm-6 col-xs-12">
+                     <img src="<?php
+						 echo Yii::getAlias('@web'); ?>/img/logo2.png" style="height: 50px" alt="Sis-Cand-Logo">
+                 </div>
+                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                     <span class="navbar-toggler-icon"></span>
+                 </button>
+                 <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
+                     <div class="navbar-nav py-0">
+						 <?= Html::a('Minhas Candidaturas', ['/site/index'], ['class' => 'nav-item nav-link active']) ?>
+						 <?= Html::a('Exames', ['/site/about'], ['class' => 'nav-item nav-link']) ?>
+						 <?= Html::a('Resultados', ['/site/contact'], ['class' => 'nav-item nav-link']) ?>
+                     </div>
+                     <p><?php echo Yii::$app->user->identity->username ?></p>
+					 <?= Html::a(
+						 'Sair',
+						 ['/site/logout'],
+						 ['data-method' => 'post', 'class' => 'btn btn-primary py-0 px-4 d-none d-lg-block']
+					 ) ?>
+                 </div>
+             </nav>
+         </div>
+
+       <?php }?>
 	</header>
 
