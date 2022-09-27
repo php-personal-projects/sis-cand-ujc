@@ -19,6 +19,7 @@
     }
 </style>
 <div class="site-index">
+	<?php    if (Yii::$app->user->isGuest) { ?>
     <div class="p-2 mb-4 bg-transparent rounded-3">
         <div class="container-fluid py-5 text-center">
             <h1 class="display-4">Bem vindo ao SIS-CAND UJC</h1>
@@ -69,5 +70,9 @@
             echo "<h4>Nenhum curso disponivel no momento</h4>";
 		}?>
     </div>
+<?php } else { ?>
+    <h1><?php echo Yii::$app->session->setFlash('warning','TESTE DE TEXTO INFORMATIVO'); ?></h1>
 
+
+    <?php } ?>
 </div>

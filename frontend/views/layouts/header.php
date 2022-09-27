@@ -42,7 +42,7 @@
 //		}
 //		NavBar::end();
 //	?>
-
+        <!--IF THE CANDIDATE IS NOT AUTHENTICATED-->
      <?php    if (Yii::$app->user->isGuest) { ?>
 
         <!-- Navbar Start -->
@@ -70,7 +70,7 @@
 
 
         <?php } else { ?>
-
+<!--IF THE CANDIDATE IS AUTHENTICATED-->
          <div class="container-fluid p-0">
              <nav class="navbar navbar-expand-lg bg-white navbar-light py-lg-0 px-lg-5 fixed-top" style="border:solid 1px; border-radius: 20px">
 
@@ -83,7 +83,7 @@
                  </button>
                  <div class="collapse navbar-collapse justify-content-between px-lg-3" id="navbarCollapse">
                      <div class="navbar-nav py-0">
-						 <?= Html::a('Minhas Candidaturas', ['/site/index'], ['class' => 'nav-item nav-link active']) ?>
+						 <?= Html::a('Minhas Candidaturas', ['/candidatura/index'], ['class' => 'nav-item nav-link']) ?>
 						 <?= Html::a('Exames', ['/site/about'], ['class' => 'nav-item nav-link']) ?>
 						 <?= Html::a('Resultados', ['/site/contact'], ['class' => 'nav-item nav-link']) ?>
                      </div>

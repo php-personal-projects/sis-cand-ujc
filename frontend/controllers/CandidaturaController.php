@@ -3,11 +3,13 @@
 namespace frontend\controllers;
 use backend\models\Disciplina;
 use backend\models\Pagamento;
+use common\models\User;
 use Yii;
 use frontend\models\Candidato;
 use frontend\models\SignupForm;
 use frontend\models\Candidatura;
 use frontend\models\CandidaturaSearch;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
@@ -40,8 +42,21 @@ class CandidaturaController extends Controller
     public function actionIndex()
     {
         $searchModel = new CandidaturaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+//        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
+		$dataProvider = new ActiveDataProvider([
+			'query' => Candidatura::find()
+			->andWhere(['created_by' => Yii::$app->user->id]),
+			'pagination' => [
+				'pageSize' => 50
+			],
+			'sort' => [
+				'defaultOrder' => [
+					'id' => SORT_DESC,
+				]
+			],
+
+		]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -110,9 +125,10 @@ class CandidaturaController extends Controller
 					}
 					$model->save();
 
-					Yii::$app->session->setFlash('success',
-						'<h2>Obrigado pela sua candidatura!</h2><br><span>Consulte a sua caixa de mensagens para ter os dados de acesso ao sistema!</span>');
-					return $this->goHome();
+						Yii::$app->session->setFlash('success',
+							'<h2>Obrigado pela sua candidatura!</h2><span>Consulte a sua caixa de mensagens para ter os dados de acesso ao sistema!</span>');
+						return $this->goHome();
+
 				}
 
 
@@ -141,8 +157,11 @@ class CandidaturaController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
-            return $this->render('update', [
+			return $this->render('update', [
                 'model' => $model,
+				'candidato' => $candidato,
+				'pagamento' => $pagamento,
+				'signupForm' => $signupForm,
             ]);
         }
     }
