@@ -10,6 +10,7 @@ use frontend\models\SignupForm;
 use frontend\models\Candidatura;
 use frontend\models\CandidaturaSearch;
 use yii\data\ActiveDataProvider;
+use yii\db\Expression;
 use yii\web\Controller;
 use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
@@ -97,29 +98,36 @@ class CandidaturaController extends Controller
 					$signupForm->load($this->request->post()) &&
 					$pagamento->load($this->request->post())) {
 
-					//user section
-					$signupForm->signup();
 
 					//candidato section
-					$candidato->created_at = date('Y-m-d H:i:s');
+					$candidato->created_at = new Expression('NOW()');
 					$candidato->save();
+
+					//user section
+					$signupForm->candidato_id = $candidato->id;
+					$signupForm->signup();
+
+					// get the user to fill created_by columns for other tables
+					$user = User::findByUsername($signupForm->username);
 
 					//payment section
 					//calculating the payment value based on the price of the subjects registered for the selected
 					$taxaInscricao = $disciplina->getSubjectPrices($model->curso_id);
 
 					$pagamento->candidato_id = $candidato->id;
-					$pagamento->data = date('Y-m-d H:i:s');
+					$pagamento->created_by = $user->id;
+					$pagamento->data = new Expression('NOW()');
 					$pagamento->valor = $taxaInscricao;
 					$pagamento->save();
 
 					// candidatura section
 					$model->candidato_id = $candidato->id;
-					$model->created_at = date('Y-m-d H:i:s');
+					$model->created_at = new Expression('NOW()');
+					$model->created_by = $user->id;
 
 					// change the application status based on the payment method selected
 					if ($pagamento->modo_pagamento == Pagamento::DEPOSITO) {
-						$model->estado = Candidatura::ESTADO_INCOMPLETO;
+						$model->estado = Candidatura::ESTADO_PENDENTE;
 					}else{
 						$model->estado = Candidatura::ESTADO_COMPLETO;
 					}
@@ -128,7 +136,6 @@ class CandidaturaController extends Controller
 						Yii::$app->session->setFlash('success',
 							'<h2>Obrigado pela sua candidatura!</h2><span>Consulte a sua caixa de mensagens para ter os dados de acesso ao sistema!</span>');
 						return $this->goHome();
-
 				}
 
 
@@ -194,5 +201,21 @@ class CandidaturaController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+	/**
+	 * This method will return the candidate_Id for the logged user
+	 *
+	 * @param $user_id
+	 * @return int
+	 */
+	public function getCandidatoIdFromLoggedUser($user_id){
+		return User::find()
+			->select('user.candidato_id')
+			->from('user')
+			->join('INNER JOIN', 'candidato', 'user.candidato_id = candidato.id')
+			->where(['user.id' => $user_id])->one()->candidato_id;
+
+
+	}
 
 }

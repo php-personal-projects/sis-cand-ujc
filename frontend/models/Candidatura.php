@@ -28,6 +28,7 @@ class Candidatura extends \yii\db\ActiveRecord
 
 	const ESTADO_COMPLETO = 'Completa';
 	const ESTADO_INCOMPLETO = 'Incompleta';
+	const ESTADO_PENDENTE = 'Pendente';
     /**
      * {@inheritdoc}
      */
@@ -50,8 +51,8 @@ class Candidatura extends \yii\db\ActiveRecord
             [['candidato_id'], 'exist', 'skipOnError' => true, 'targetClass' => Candidato::class, 'targetAttribute' => ['candidato_id' => 'id']],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::class, 'targetAttribute' => ['created_by' => 'id']],
             [['curso_id'], 'exist', 'skipOnError' => true, 'targetClass' => Curso::class, 'targetAttribute' => ['curso_id' => 'id']],
-			['estado', 'default', 'value' => self::ESTADO_INCOMPLETO],
-			['estado', 'in', 'range' => [self::ESTADO_COMPLETO, self::ESTADO_INCOMPLETO]],
+			['estado', 'default', 'value' => self::ESTADO_PENDENTE],
+			['estado', 'in', 'range' => [self::ESTADO_PENDENTE,self::ESTADO_COMPLETO, self::ESTADO_INCOMPLETO]],
         ];
     }
 
@@ -62,11 +63,11 @@ class Candidatura extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'candidato_id' => 'Candidato ID',
+            'candidato_id' => 'Candidato',
             'curso_id' => 'Curso',
             'regime' => 'Regime',
             'estado' => 'Estado',
-            'created_at' => 'Created At',
+            'created_at' => 'Criada em',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
         ];

@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Disciplina;
 use backend\models\DisciplinaSearch;
+use yii\db\Expression;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -67,7 +68,7 @@ class DisciplinaController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-			$model->created_at = date('Y-m-d H:i:s');
+			$model->created_at = new Expression('NOW()');
 			$model->created_by = Yii::$app->user->id;
 			$model->save();
 

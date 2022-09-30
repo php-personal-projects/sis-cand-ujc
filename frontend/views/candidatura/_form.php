@@ -278,11 +278,11 @@
                 </div>
                 <div class="group-inputs">
                     <label for="email">Sexo</label>
-					<?= $form->field($candidato, 'sexo')->dropDownList(['m' => 'Masculino', 'f' => 'Feminino'], ['prompt' => 'Genero']) ?>
+					<?= $form->field($candidato, 'sexo')->dropDownList(['M' => 'Masculino', 'F' => 'Feminino'], ['prompt' => 'Genero']) ?>
                 </div>
                 <div class="group-inputs">
                     <label for="email">Tipo de Documento</label>
-					<?= $form->field($candidato, 'tipo_documento')->dropDownList([ 'bi' => 'BI', 'passaporte' => 'Passaporte', 'dire' => 'DIRE', 'eleitor' => 'Cartao de eleitor', ], ['prompt' => 'Tipo de documento']) ?>
+					<?= $form->field($candidato, 'tipo_documento')->dropDownList([ 'BI' => 'BI', 'Passaporte' => 'Passaporte', 'DIRE' => 'DIRE', 'CartaoEleitor' => 'Cartao de eleitor', ], ['prompt' => 'Tipo de documento']) ?>
                 </div>
                 <div class="group-inputs">
                     <label for="email">Numero do documento</label>

@@ -5,6 +5,7 @@ namespace backend\controllers;
 use Yii;
 use backend\models\Curso;
 use backend\models\CursoSearch;
+use yii\db\Expression;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -75,7 +76,7 @@ class CursoController extends Controller
 
 		if ($model->load(Yii::$app->request->post())  ) {
 			$model->created_by = Yii::$app->user->identity->id;
-			$model->created_at = date('Y-m-d H:i:s');
+			$model->created_at = new Expression('NOW()');
 			$model->save();
 			Yii::$app->session->setFlash('success', "Curso criado com sucesso.");
 			return $this->redirect(['view', 'id' => $model->id]);
@@ -97,7 +98,7 @@ class CursoController extends Controller
         $model = $this->findModel($id);
 
 		if ($model->load(Yii::$app->request->post()) ) {
-			$model->updated_at = date('Y-m-d H:i:s');
+			$model->updated_at = new Expression('NOW()');
 			$model->save();
 			return $this->redirect(['view', 'id' => $model->id]);
 		} else {

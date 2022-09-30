@@ -3,6 +3,7 @@
 namespace backend\models;
 
 use common\models\User;
+use frontend\models\Candidatura;
 use Yii;
 
 /**
@@ -64,15 +65,15 @@ class Candidato extends \yii\db\ActiveRecord
             'nome' => 'Nome',
             'sexo' => 'Sexo',
             'tipo_documento' => 'Tipo Documento',
-            'numero_documento' => 'Numero Documento',
+            'numero_documento' => 'Numero do Documento',
             'nuit' => 'Nuit',
-            'data_nascimento' => 'Data Nascimento',
+            'data_nascimento' => 'Data de Nascimento',
             'naturalidade' => 'Naturalidade',
             'provincia' => 'Provincia',
             'contacto_actual' => 'Contacto Actual',
             'nivel_academico' => 'Nivel Academico',
-            'nome_escola' => 'Nome Escola',
-            'created_at' => 'Created At',
+            'nome_escola' => 'Nome da Escola',
+            'created_at' => 'Criado em',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
         ];

@@ -54,7 +54,7 @@ class Disciplina extends \yii\db\ActiveRecord
             'id' => 'ID',
             'nome' => 'Nome',
             'preco' => 'Preco',
-            'curso_id' => 'Curso ID',
+            'curso_id' => 'Curso',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',

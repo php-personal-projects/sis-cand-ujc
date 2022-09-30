@@ -10,8 +10,8 @@
 				'items' => [
 					['label' => 'Menu', 'options' => ['class' => 'header']],
 					['label' => 'Dashboard', 'icon' => 'dashboard', 'url' => ['/site/index']],
-					['label' => 'Candidatos', 'icon' => 'file-code-o', 'url' => ['/sala/index']],
-					['label' => 'Candidaturas', 'icon' => 'file-code-o', 'url' => ['/agendamento/index']],
+					['label' => 'Candidatos', 'icon' => 'file-code-o', 'url' => ['/candidato/index']],
+					['label' => 'Candidaturas', 'icon' => 'file-code-o', 'url' => ['/candidatura/index']],
 					['label' => 'Cursos', 'icon' => 'far fa-list-alt', 'url' => ['/curso/index']],
 					['label' => 'Disciplinas', 'icon' => 'file-code-o', 'url' => ['/disciplina/index']],
 					['label' => 'Escolas', 'icon' => 'file-code-o', 'url' => ['/empresa/index']],

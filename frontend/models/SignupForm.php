@@ -61,7 +61,7 @@ class SignupForm extends Model
 
     /**
      * Sends confirmation email to user
-     * @param User $user user model to with email should be send
+     * @param User $user user model to with email should be sent
      * @return bool whether the email was sent
      */
     protected function sendEmail($user)

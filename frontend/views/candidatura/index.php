@@ -1,6 +1,7 @@
 <?php
 
-use yii\helpers\Html;
+	use common\models\User;
+	use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 /* @var $this yii\web\View */
@@ -12,9 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="candidatura-index box box-primary">
     <?php Pjax::begin(); ?>
-<!--    <div class="box-header with-border">-->
-<!--        --><?//= Html::a('<i class="glyphicon glyphicon-plus"></i> Criar', ['create'], ['class' => 'btn btn-success btn-flat']) ?>
-<!--    </div>-->
+    <h2 style="text-align: center">Minhas candidaturas</h2>
     <div class="box-body table-responsive no-padding">
         <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
         <?= GridView::widget([
@@ -22,11 +21,15 @@ $this->params['breadcrumbs'][] = $this->title;
             'filterModel' => $searchModel,
             'layout' => "{items}\n{summary}\n{pager}",
             'columns' => [
-                ['class' => 'yii\grid\SerialColumn'],
-
-//                'id',
-                'candidato_id',
-                'curso_id',
+//                ['class' => 'yii\grid\SerialColumn'],
+                [
+					'attribute' => 'candidato_id',
+					'value' => 'candidato.nome',
+				],
+				[
+					'attribute' => 'curso_id',
+					'value' => 'curso.nome',
+				],
                 'regime',
                 'estado',
                  'created_at',
