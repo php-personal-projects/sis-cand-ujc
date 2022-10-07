@@ -104,7 +104,7 @@ class CandidaturaController extends Controller
 					$candidato->save();
 
 					//user section
-					$signupForm->candidato_id = $candidato->id;
+//					$signupForm->candidato_id = $candidato->id;
 					$signupForm->signup();
 
 					// get the user to fill created_by columns for other tables

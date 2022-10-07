@@ -8,6 +8,12 @@
 	AppAsset::register($this);
 
 ?>
+<style>
+    .btn-color {
+        background-color: #1ab2ff;
+        color:white;
+    }
+</style>
 	<header>
 <!--    --><?php
 //    NavBar::begin([

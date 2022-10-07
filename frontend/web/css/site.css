@@ -102,3 +102,16 @@ a.desc:after {
     text-decoration: none;
 }
 
+.btn-color {
+    background-color: #1ab2ff;
+    color:white;
+}
+
+.h1-home{
+    padding: 4px;
+    background-color: #1ab2ff;
+    position: relative;
+    margin-right: 60px;
+    margin-left: 60px;
+    font-weight: bold
+}

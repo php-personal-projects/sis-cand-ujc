@@ -2,9 +2,11 @@
 
 	use yii\helpers\ArrayHelper;
     use yii\helpers\Html;
-    use yii\widgets\ActiveForm;
+	use yii\web\View;
+	use yii\widgets\ActiveForm;
+	use yii\widgets\DetailView;
 
-    /* @var $this yii\web\View */
+	/* @var $this yii\web\View */
     /* @var $model frontend\models\Candidatura */
     /* @var $form yii\widgets\ActiveForm */
     /* @var $signupForm frontend\models\SignupForm */
@@ -14,6 +16,10 @@
 
 <!--CSS for form-->
 <style>
+    .btn-color {
+        background-color: #1ab2ff;
+        color:white;
+    }
     :root{
         --primary-color: rgb(131, 161, 208)
     }
@@ -24,8 +30,8 @@
         font-family: Montserrat, "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
         margin: 0;
         display: grid;
-        place-items: center;
-        min-height: 100vh;
+        /*place-items: center;*/
+        /*min-height: 100vh;*/
         /*background-color: #0b4eb3*/
     }
     label{
@@ -93,7 +99,7 @@
         color: #666
     }
     .progress-step-active{
-        background-color: var(--primary-color);
+        background-color: #007bff;
         color: #f3f3f3
     }
     .form{
@@ -103,7 +109,7 @@
         border: none;
         border-radius: 10px !important;
         overflow: hidden;
-        padding: 1.5rem;
+        /*padding: 1.5rem;*/
         background-color: #fff;
         padding: 20px 30px
     }
@@ -137,6 +143,18 @@
         padding: 0.75rem;
         display: block;
         text-decoration: none;
+        background-color: #007bff;
+        color: #f3f3f3;
+        text-align: center;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        transition: 0.3s
+    }
+
+    .btn-back{
+        padding: 0.75rem;
+        display: block;
+        text-decoration: none;
         background-color: var(--primary-color);
         color: #f3f3f3;
         text-align: center;
@@ -145,6 +163,10 @@
         transition: 0.3s
     }
     .btn:hover{
+        box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--primary-color)
+    }
+
+    .btn-back:hover{
         box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--primary-color)
     }
     .progress-step-check{
@@ -243,101 +265,85 @@
 
             <div class="progressbar">
                 <div class="progress" id="progress"></div>
-                <div class="progress-step progress-step-active" data-title="Conta"></div>
-                <div class="progress-step" data-title="Dados Pessoais"></div>
+
+                <div class="progress-step progress-step-active" data-title="Dados Pessoais"></div>
                 <div class="progress-step" data-title="Curso"></div>
                 <div class="progress-step" data-title="Pagamento"></div>
+                <div class="progress-step" data-title="Conta"></div>
                 <div class="progress-step" data-title="Confirmação"></div>
+
             </div>
 
 <!--            ACCOUNT SECTION-->
             <div class="step-forms step-forms-active">
                 <div class="group-inputs">
-                    <label for="username">Username</label>
-					<?= $form->field($signupForm, 'username')->textInput(['autofocus' => true]) ?>
-                </div>
-                <div class="group-inputs">
-                    <label for="position">Email</label>
-					<?= $form->field($signupForm, 'email')->textInput(['autofocus' => true, 'type' => 'email']) ?>
-                </div>
-                <div class="group-inputs">
-                    <label for="email">Password</label>
-					<?= $form->field($signupForm, 'password')->textInput(['autofocus' => true, 'type' => 'password']) ?>
-                </div>
-
-                <div class="">
-                    <a href="#" class="btn btn-next width-50 ml-auto">Proximo</a>
-                </div>
-            </div>
-
-<!--            CANDIDATO SECTION-->
-            <div class="step-forms">
-                <div class="group-inputs">
                     <label for="phone">Nome</label>
-					<?= $form->field($candidato, 'nome')->textInput(['maxlength' => true]) ?>
+					<?= $form->field($candidato, 'nome', ['inputOptions' => ['id'=>'nomeId']])->textInput(['maxlength' => true, 'autofocus' => true, 'class' => 'form-control']) ?>
                 </div>
                 <div class="group-inputs">
                     <label for="email">Sexo</label>
-					<?= $form->field($candidato, 'sexo')->dropDownList(['M' => 'Masculino', 'F' => 'Feminino'], ['prompt' => 'Genero']) ?>
+					<?= $form->field($candidato, 'sexo', ['inputOptions' => ['id'=>'sexoId']])->dropDownList(['M' => 'Masculino', 'F' => 'Feminino'], ['prompt' => 'Genero']) ?>
                 </div>
                 <div class="group-inputs">
                     <label for="email">Tipo de Documento</label>
-					<?= $form->field($candidato, 'tipo_documento')->dropDownList([ 'BI' => 'BI', 'Passaporte' => 'Passaporte', 'DIRE' => 'DIRE', 'CartaoEleitor' => 'Cartao de eleitor', ], ['prompt' => 'Tipo de documento']) ?>
+					<?= $form->field($candidato, 'tipo_documento', ['inputOptions' => ['id'=>'tipoDocumentoId']])->dropDownList([ 'BI' => 'BI', 'Passaporte' => 'Passaporte', 'DIRE' => 'DIRE', 'CartaoEleitor' => 'Cartao de eleitor', ], ['prompt' => 'Tipo de documento']) ?>
                 </div>
                 <div class="group-inputs">
                     <label for="email">Numero do documento</label>
-					<?= $form->field($candidato, 'numero_documento')->textInput(['maxlength' => true]) ?>
+					<?= $form->field($candidato, 'numero_documento', ['inputOptions' => ['id'=>'numeroDocumentoId']])->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="group-inputs">
                     <label for="email">Nuit</label>
-					<?= $form->field($candidato, 'nuit')->textInput(['maxlength' => true]) ?>
+					<?= $form->field($candidato, 'nuit', ['inputOptions' => ['id'=>'nuitId']])->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="group-inputs">
                     <label for="dob">Data de Nascimento</label>
-					<?= $form->field($candidato, 'data_nascimento')->textInput([ 'type' => 'date']) ?>
+					<?= $form->field($candidato, 'data_nascimento', ['inputOptions' => ['id'=>'nascimentoId']])->textInput([ 'type' => 'date']) ?>
                 </div>
 
                 <div class="group-inputs">
                     <label for="email">Naturalidade</label>
-					<?= $form->field($candidato, 'naturalidade')->textInput(['maxlength' => true]) ?>
+					<?= $form->field($candidato, 'naturalidade', ['inputOptions' => ['id'=>'naturalidadeId']])->textInput(['maxlength' => true]) ?>
                 </div>
 
                 <div class="group-inputs">
                     <label for="email">Provincia de residencia</label>
-					<?= $form->field($candidato, 'provincia')->textInput(['maxlength' => true]) ?>
+					<?= $form->field($candidato, 'provincia', ['inputOptions' => ['id'=>'provinciaId']])->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="group-inputs">
                     <label for="email">Contacto</label>
-					<?= $form->field($candidato, 'contacto_actual')->textInput(['maxlength' => true]) ?>
+					<?= $form->field($candidato, 'contacto_actual', ['inputOptions' => ['id'=>'contactoId']])->textInput(['maxlength' => true]) ?>
                 </div>
                 <div class="group-inputs">
                     <label for="email">Nivel academico</label>
-					<?= $form->field($candidato, 'nivel_academico')->dropDownList([ 'medio' => '12a Classe', 'superior' => 'Superior', 'tecnico' => 'Tecnico' ], ['prompt' => 'Nivel academico']) ?>
+					<?= $form->field($candidato, 'nivel_academico', ['inputOptions' => ['id'=>'nivelMedioId']])->dropDownList([ 'medio' => '12a Classe', 'superior' => 'Superior', 'tecnico' => 'Tecnico' ], ['prompt' => 'Nivel academico']) ?>
                 </div>
                 <div class="group-inputs">
                     <label for="email">Nome da escola</label>
-					<?= $form->field($candidato, 'nome_escola')->textInput(['maxlength' => true]) ?>
+					<?= $form->field($candidato, 'nome_escola', ['inputOptions' => ['id'=>'nomeEscolaId']])->textInput(['maxlength' => true]) ?>
                 </div>
-                <div class="btns-group">
-                    <a href="#" class="btn btn-prev">Voltar</a>
-                    <a href="#" class="btn btn-next">Proximo</a>
+
+                <div class="">
+                    <a href="#" class="btn btn-next width-50 ml-auto btn-color">Proximo</a>
                 </div>
             </div>
+
+
 
 <!--            COURSE SECTION-->
             <div class="step-forms">
                 <div class="group-inputs">
                     <label for="phone">Nome do curso</label>
-					<?= $form->field($model, 'curso_id')->dropDownList(
+					<?= $form->field($model, 'curso_id', ['inputOptions' => ['id'=>'cursoId']])->dropDownList(
 						ArrayHelper::map(\backend\models\Curso::find()->all(),'id','nome'), ['prompt' => 'Escolha um curso ']);?>
                 </div>
                 <div class="group-inputs">
                     <label for="email">Regime</label>
-					<?= $form->field($model, 'regime')->dropDownList([ 'laboral' => 'Laboral', 'pos-laboral' => 'Pos-Laboral'], ['prompt' => 'Escolha um regime']) ?>
+					<?= $form->field($model, 'regime', ['inputOptions' => ['id'=>'regimeId']])->dropDownList([ 'laboral' => 'Laboral', 'pos-laboral' => 'Pos-Laboral'], ['prompt' => 'Escolha um regime']) ?>
                 </div>
                 <div class="btns-group">
-                    <a href="#" class="btn btn-prev">Voltar</a>
+                    <a href="#" class="btn-back btn-prev">Voltar</a>
                     <a href="#" class="btn btn-next">Proximo</a>
                 </div>
             </div>
@@ -346,53 +352,53 @@
             <div class="step-forms">
                 <div class="group-inputs">
                     <label for="phone">Modo de Pagamento</label>
-					<?= $form->field($pagamento, 'modo_pagamento')->dropDownList(['M-pesa' => 'M-pesa', 'mKesh' => 'M-kesh',
+					<?= $form->field($pagamento, 'modo_pagamento', ['inputOptions' => ['id'=>'modoPagamentoId']])->dropDownList(['M-pesa' => 'M-pesa', 'mKesh' => 'M-kesh',
                         'E-Mola' => 'E-Mola', 'Deposito' => 'Deposito'], ['prompt' => 'Modo de pagamento']) ?>
-
-
                 </div>
                 <div class="group-inputs">
                     <label for="email">Contacto</label>
-                    <?= $form->field($pagamento, 'contacto')->textInput(['maxlength' => true, 'type' => 'phone'])?>
+                    <?= $form->field($pagamento, 'contacto', ['inputOptions' => ['id'=>'contactoPagamentoId']])->textInput(['maxlength' => true, 'type' => 'phone'])?>
                 </div>
 
                 <div class="btns-group">
-                    <a href="#" class="btn btn-prev">Voltar</a>
+                    <a href="#" class="btn-back btn-prev">Voltar</a>
                     <a href="#" class="btn btn-next">Proximo</a>
                 </div>
             </div>
 
+        <!--            CANDIDATO SECTION-->
+        <div class="step-forms">
+            <div class="group-inputs">
+                <label for="username">Username</label>
+                <?= $form->field($signupForm, 'username', ['inputOptions' => ['id'=>'usernameId']])->textInput(['autofocus' => true]) ?>
+            </div>
+            <div class="group-inputs">
+                <label for="position">Email</label>
+                <?= $form->field($signupForm, 'email', ['inputOptions' => ['id'=>'emailId']])->textInput(['autofocus' => true, 'type' => 'email']) ?>
+            </div>
+            <div class="group-inputs">
+                <label for="email">Password</label>
+                <?= $form->field($signupForm, 'password')->textInput(['autofocus' => true, 'type' => 'password']) ?>
+            </div>
+            <div class="btns-group">
+                <a href="#" class="btn-back btn-prev">Voltar</a>
+                <a href="#" class="btn btn-next" id="confirm_id" onclick="printDetails()">Proximo</a>
+            </div>
+        </div>
+
 <!--            CONFIRMATION SECTION -->
             <div class="step-forms">
-                <label for="dob">Confirme os seus dados</label>
+                <label for="dob">Confirmation</label>
 
-                <h6><?= Html::encode($model->regime)?></h6>
-                <h6>sexo</h6>
-                <h6>...</h6>
-                <h6>Nome</h6>
-                <h6>sexo</h6>
+                <h6 id="nameTitle">Nome: </h6>
+                <h6 id="cursoTitle">Curso: </h6>
+                <h6 id="regimeTitle">Regime: </h6>
+                <h6 id="modoPagamentoTitle">Modo de Pagamento: </h6>
+                <h6><b>Disciplinas:</b></h6>
+                <h6><b>Total pago:</b></h6>
 
-
-                <!--        <div class="group-inputs">-->
-                <!--            <label for="dob">Confirme os seus dados</label>-->
-                <!--            <input type="date" name="dob" id="dob" />-->
-                <!--        </div>-->
-                <!--        <div class="group-inputs">-->
-                <!--            <label for="ID">National ID</label>-->
-                <!--            <input type="number" name="ID" id="ID" />-->
-                <!--        </div>-->
-                <!---->
-                <!--        <div class="group-inputs">-->
-                <!--            <label for="ID">Account Number</label>-->
-                <!--            <input type="number" name="ID" id="ID" />-->
-                <!--        </div>-->
-                <!---->
-                <!--        <div class="group-inputs">-->
-                <!--            <label for="ID">Swift Code</label>-->
-                <!--            <input type="text" name="ID" id="ID" />-->
-                <!--        </div>-->
                 <div class="btns-group">
-                    <a href="#" class="btn btn-prev">Voltar</a>
+                    <a href="#" class="btn-back btn-prev">Voltar</a>
 					<?= Html::submitButton('Submeter', ['class' => 'btn btn-flat', 'id' => 'submit-form']) ?>
                 </div>
             </div>
@@ -488,4 +494,26 @@
         // $('#submit-form').on('click', function() {
         // $form.submit();
     });
+</script>
+
+
+<script>
+
+
+
+
+
+    function printDetails(){
+        var nomeCand = document.getElementById('nomeId').value
+        // var cursoCand = document.getElementById('cursoId')value
+        // var regimeCurso = document.getElementById('regimeId').value
+        // var modoPagamento = document.getElementById('modoPagamentoId').value
+
+        document.getElementById("nameTitle").innerHTML += nomeCand;
+        // document.getElementById("cursoTitle").innerHTML += cursoCand;
+        // document.getElementById("regimeTitle").innerHTML += regimeCurso;
+        // document.getElementById("modoPagamentoTitle").innerHTML += modoPagamento;
+
+    }
+
 </script>

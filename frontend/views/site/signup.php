@@ -312,7 +312,7 @@
         margin: 0;
         display: grid;
         place-items: center;
-        min-height: 100vh;
+        /*min-height: 100vh;*/
         /*background-color: #0b4eb3*/
     }
     label{
@@ -380,7 +380,7 @@
         color: #666
     }
     .progress-step-active{
-        background-color: var(--primary-color);
+        background-color: #007bff;
         color: #f3f3f3
     }
     .form{
@@ -424,6 +424,18 @@
         padding: 0.75rem;
         display: block;
         text-decoration: none;
+        background-color: #007bff;
+        color: #f3f3f3;
+        text-align: center;
+        border-radius: 0.25rem;
+        cursor: pointer;
+        transition: 0.3s
+    }
+
+    .btn-back{
+        padding: 0.75rem;
+        display: block;
+        text-decoration: none;
         background-color: var(--primary-color);
         color: #f3f3f3;
         text-align: center;
@@ -432,6 +444,10 @@
         transition: 0.3s
     }
     .btn:hover{
+        box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--primary-color)
+    }
+
+    .btn-back:hover{
         box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--primary-color)
     }
     .progress-step-check{
@@ -578,7 +594,7 @@
             <input type="text" name="email" id="email" />
         </div>
         <div class="btns-group">
-            <a href="#" class="btn btn-prev">Voltar</a>
+            <a href="#" class="btn-back btn-prev">Voltar</a>
             <a href="#" class="btn btn-next">Proximo</a>
         </div>
     </div>
