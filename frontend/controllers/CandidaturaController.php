@@ -91,7 +91,7 @@ class CandidaturaController extends Controller
 
 
 
-//		if ( \Yii::$app->user->can("create-company")){
+
 			if ($this->request->isPost) {
 				if ($model->load($this->request->post()) &&
 					$candidato->load($this->request->post()) &&
@@ -104,26 +104,27 @@ class CandidaturaController extends Controller
 					$candidato->save();
 
 					//user section
-//					$signupForm->candidato_id = $candidato->id;
+					$test = $signupForm->username; //get the username before creating new user
 					$signupForm->signup();
 
 					// get the user to fill created_by columns for other tables
-					$user = User::findByUsername($signupForm->username);
+					$newUser = User::findByUsername($test);
+					$newUserId = $newUser['id'];
 
 					//payment section
 					//calculating the payment value based on the price of the subjects registered for the selected
 					$taxaInscricao = $disciplina->getSubjectPrices($model->curso_id);
 
 					$pagamento->candidato_id = $candidato->id;
-					$pagamento->created_by = $user->id;
 					$pagamento->data = new Expression('NOW()');
 					$pagamento->valor = $taxaInscricao;
+					$pagamento->contacto = $candidato->contacto_actual;
 					$pagamento->save();
 
 					// candidatura section
 					$model->candidato_id = $candidato->id;
 					$model->created_at = new Expression('NOW()');
-					$model->created_by = $user->id;
+					$model->created_by = $newUserId;
 
 					// change the application status based on the payment method selected
 					if ($pagamento->modo_pagamento == Pagamento::DEPOSITO) {
@@ -160,6 +161,9 @@ class CandidaturaController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+		$candidato = $this->findModel($id);
+		$pagamento = $this->findModel($id);
+		$signupForm = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);

@@ -67,15 +67,6 @@
             <!-- Card -->
             <div class="card">
 
-                <!--Card image-->
-<!--                <div class="view overlay">-->
-<!--                    <img class="card-img-top" src="https://mdbootstrap.com/img/Photos/Others/images/16.webp"-->
-<!--                         alt="Card image cap" >-->
-<!--                    <a href="#!">-->
-<!--                        <div class="mask rgba-white-slight"></div>-->
-<!--                    </a>-->
-<!--                </div>-->
-
                 <!--Card content-->
                 <div class="card-body" >
 
@@ -98,11 +89,11 @@
         </div>
 		<?php }
         } else {
-            echo "<h4>Nenhum curso disponivel no momento</h4>";
+            echo "<h4>Nenhum curso disponivel no momento!</h4>";
 		}?>
     </div>
 <?php } else { ?>
-    <h1><?= Yii::$app->session->setFlash('warning','TESTE DE TEXTO INFORMATIVO') ?></h1>
+    <h1><?= Yii::$app->session->setFlash('warning','CARO CANDIDATO! OS SEUS EXAMES ESTARAO DISPONÍVEIS APÓS A DATA DE FECHO DAS INSCRIÇÕES.') ?></h1>
 
 
     <?php } ?>

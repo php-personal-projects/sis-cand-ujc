@@ -2,9 +2,7 @@
 
 	use yii\helpers\ArrayHelper;
     use yii\helpers\Html;
-	use yii\web\View;
 	use yii\widgets\ActiveForm;
-	use yii\widgets\DetailView;
 
 	/* @var $this yii\web\View */
     /* @var $model frontend\models\Candidatura */
@@ -257,7 +255,6 @@
     }
 </style>
 
-
 <div class="candidatura-form box box-primary">
 	<?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'class' =>'form']]); ?>
 <!--    , 'id' => 'forms'-->
@@ -282,11 +279,11 @@
                 </div>
                 <div class="group-inputs">
                     <label for="email">Sexo</label>
-					<?= $form->field($candidato, 'sexo', ['inputOptions' => ['id'=>'sexoId']])->dropDownList(['M' => 'Masculino', 'F' => 'Feminino'], ['prompt' => 'Genero']) ?>
+					<?= $form->field($candidato, 'sexo', ['inputOptions' => ['id'=>'sexoId']])->dropDownList(['M' => 'Masculino', 'F' => 'Feminino'], ['prompt' => 'Genero', 'class' => 'form-control']) ?>
                 </div>
                 <div class="group-inputs">
                     <label for="email">Tipo de Documento</label>
-					<?= $form->field($candidato, 'tipo_documento', ['inputOptions' => ['id'=>'tipoDocumentoId']])->dropDownList([ 'BI' => 'BI', 'Passaporte' => 'Passaporte', 'DIRE' => 'DIRE', 'CartaoEleitor' => 'Cartao de eleitor', ], ['prompt' => 'Tipo de documento']) ?>
+					<?= $form->field($candidato, 'tipo_documento', ['inputOptions' => ['id'=>'tipoDocumentoId']])->dropDownList([ 'BI' => 'BI', 'Passaporte' => 'Passaporte', 'DIRE' => 'DIRE', 'CartaoEleitor' => 'Cartao de eleitor', ], ['prompt' => 'Tipo de documento', 'class' => 'form-control']) ?>
                 </div>
                 <div class="group-inputs">
                     <label for="email">Numero do documento</label>
@@ -317,7 +314,7 @@
                 </div>
                 <div class="group-inputs">
                     <label for="email">Nivel academico</label>
-					<?= $form->field($candidato, 'nivel_academico', ['inputOptions' => ['id'=>'nivelMedioId']])->dropDownList([ 'medio' => '12a Classe', 'superior' => 'Superior', 'tecnico' => 'Tecnico' ], ['prompt' => 'Nivel academico']) ?>
+					<?= $form->field($candidato, 'nivel_academico', ['inputOptions' => ['id'=>'nivelMedioId']])->dropDownList([ 'medio' => '12a Classe', 'superior' => 'Superior', 'tecnico' => 'Tecnico' ], ['prompt' => 'Nivel academico', 'class' => 'form-control']) ?>
                 </div>
                 <div class="group-inputs">
                     <label for="email">Nome da escola</label>
@@ -336,11 +333,11 @@
                 <div class="group-inputs">
                     <label for="phone">Nome do curso</label>
 					<?= $form->field($model, 'curso_id', ['inputOptions' => ['id'=>'cursoId']])->dropDownList(
-						ArrayHelper::map(\backend\models\Curso::find()->all(),'id','nome'), ['prompt' => 'Escolha um curso ']);?>
+						ArrayHelper::map(\backend\models\Curso::find()->all(),'id','nome'), ['prompt' => 'Escolha um curso ', 'class' => 'form-control']);?>
                 </div>
                 <div class="group-inputs">
                     <label for="email">Regime</label>
-					<?= $form->field($model, 'regime', ['inputOptions' => ['id'=>'regimeId']])->dropDownList([ 'laboral' => 'Laboral', 'pos-laboral' => 'Pos-Laboral'], ['prompt' => 'Escolha um regime']) ?>
+					<?= $form->field($model, 'regime', ['inputOptions' => ['id'=>'regimeId']])->dropDownList([ 'laboral' => 'Laboral', 'pos-laboral' => 'Pos-Laboral'], ['prompt' => 'Escolha um regime', 'class' => 'form-control']) ?>
                 </div>
                 <div class="btns-group">
                     <a href="#" class="btn-back btn-prev">Voltar</a>
@@ -353,11 +350,11 @@
                 <div class="group-inputs">
                     <label for="phone">Modo de Pagamento</label>
 					<?= $form->field($pagamento, 'modo_pagamento', ['inputOptions' => ['id'=>'modoPagamentoId']])->dropDownList(['M-pesa' => 'M-pesa', 'mKesh' => 'M-kesh',
-                        'E-Mola' => 'E-Mola', 'Deposito' => 'Deposito'], ['prompt' => 'Modo de pagamento']) ?>
+                        'E-Mola' => 'E-Mola', 'Deposito' => 'Deposito'], ['prompt' => 'Modo de pagamento' , 'class' => 'form-control']) ?>
                 </div>
                 <div class="group-inputs">
                     <label for="email">Contacto</label>
-                    <?= $form->field($pagamento, 'contacto', ['inputOptions' => ['id'=>'contactoPagamentoId']])->textInput(['maxlength' => true, 'type' => 'phone'])?>
+                    <?= $form->field($pagamento, 'contacto', ['inputOptions' => ['id'=>'contactoPagamentoId']])->textInput(['maxlength' => true, 'type' => 'phone', 'class' => 'form-control'])?>
                 </div>
 
                 <div class="btns-group">
@@ -370,15 +367,15 @@
         <div class="step-forms">
             <div class="group-inputs">
                 <label for="username">Username</label>
-                <?= $form->field($signupForm, 'username', ['inputOptions' => ['id'=>'usernameId']])->textInput(['autofocus' => true]) ?>
+                <?= $form->field($signupForm, 'username')->textInput(['autofocus' => true]) ?>
             </div>
             <div class="group-inputs">
                 <label for="position">Email</label>
-                <?= $form->field($signupForm, 'email', ['inputOptions' => ['id'=>'emailId']])->textInput(['autofocus' => true, 'type' => 'email']) ?>
+                <?= $form->field($signupForm, 'email')->textInput([ 'type' => 'email']) ?>
             </div>
             <div class="group-inputs">
                 <label for="email">Password</label>
-                <?= $form->field($signupForm, 'password')->textInput(['autofocus' => true, 'type' => 'password']) ?>
+                <?= $form->field($signupForm, 'password')->textInput([ 'type' => 'password']) ?>
             </div>
             <div class="btns-group">
                 <a href="#" class="btn-back btn-prev">Voltar</a>
@@ -388,14 +385,13 @@
 
 <!--            CONFIRMATION SECTION -->
             <div class="step-forms">
-                <label for="dob">Confirmation</label>
+                <label for="dob">Confirmação</label>
 
-                <h6 id="nameTitle">Nome: </h6>
-                <h6 id="cursoTitle">Curso: </h6>
-                <h6 id="regimeTitle">Regime: </h6>
-                <h6 id="modoPagamentoTitle">Modo de Pagamento: </h6>
-                <h6><b>Disciplinas:</b></h6>
-                <h6><b>Total pago:</b></h6>
+                <h6 id="nameTitle"><b>Nome: </b> </h6>
+                <h6 id="cursoTitle"><b>Curso: </b> </h6>
+                <h6 id="regimeTitle"><b>Regime: </b> </h6>
+                <h6 id="modoPagamentoTitle"><b>Modo de Pagamento: </b> </h6>
+                <h6 id="disciplinasTitle"><b>Disciplinas: </b></h6>
 
                 <div class="btns-group">
                     <a href="#" class="btn-back btn-prev">Voltar</a>
@@ -499,20 +495,23 @@
 
 <script>
 
-
-
-
-
     function printDetails(){
         var nomeCand = document.getElementById('nomeId').value
-        // var cursoCand = document.getElementById('cursoId')value
-        // var regimeCurso = document.getElementById('regimeId').value
-        // var modoPagamento = document.getElementById('modoPagamentoId').value
+        var cursoCand = document.getElementById('cursoId').value
+        var regimeCurso = document.getElementById('regimeId').value
+        var modoPagamento = document.getElementById('modoPagamentoId').value
+        //create the table with subjects
+        var table = "<table border=1 width=100%>";
+            table += "<tr><td align=left>Portugues</td></tr>";
+            table += "<tr><td align=left>Matematica</td></tr>";
+            table += "<tr><td align=left><b>Total pago:</b> 600mt</td></tr>";
+            table += "</table>";
 
         document.getElementById("nameTitle").innerHTML += nomeCand;
-        // document.getElementById("cursoTitle").innerHTML += cursoCand;
-        // document.getElementById("regimeTitle").innerHTML += regimeCurso;
-        // document.getElementById("modoPagamentoTitle").innerHTML += modoPagamento;
+        document.getElementById("cursoTitle").innerHTML += "Engenharia em Tecnologias e Sistemas de Informação";
+        document.getElementById("regimeTitle").innerHTML += regimeCurso;
+        document.getElementById("modoPagamentoTitle").innerHTML += modoPagamento;
+        document.getElementById("disciplinasTitle").innerHTML += table;
 
     }
 
