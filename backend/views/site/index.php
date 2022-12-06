@@ -11,7 +11,7 @@
                 <!-- small box -->
                 <div class="small-box bg-info">
                     <div class="inner">
-                        <h3>150</h3>
+                        <h3><? echo \frontend\models\Candidatura::find()->count(); ?> </h3>
                         <p>Total de candidaturas</p>
                     </div>
                     <div class="icon">
@@ -26,7 +26,7 @@
                 <!-- small box -->
                 <div class="small-box bg-success">
                     <div class="inner">
-                        <h3>53<sup style="font-size: 20px">%</sup></h3>
+                        <h3><? echo \backend\models\Curso::find()->count(); ?></h3>
 
                         <p>Total de cursos</p>
                     </div>
@@ -56,7 +56,7 @@
                 <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        <h3>65</h3>
+                        <h3><? echo \frontend\models\Candidatura::find()->where(['estado' => \frontend\models\Candidatura::ESTADO_COMPLETO])->count(); ?></h3>
 
                         <p>Total de candidaturas terminadas</p>
                     </div>
